@@ -34,20 +34,20 @@ def prepare_graph_data():
     list_of_teams = get_list_teams()
     end_dates_per_server = get_end_dates()
     data = []
-
     last_seven_days = datetime.today() - timedelta(days=7)
     i = 0
     for team_name in list_of_teams:
         list_data = []
-        graph_data = []
+        graph_data = {}
         for date_of_build_job in end_dates_per_server[i]:
             if date_of_build_job >= last_seven_days:
                 list_data.append(True)
             else:
                 list_data.append(False)
         i += 1
-        graph_data.append(team_name)
-        graph_data.append(list_data)
+        graph_data.update({'Team Name': team_name})#
+        graph_data.update({"BuildJob active" : list_data})
+        # graph_data.append(list_data)
         data.append(graph_data)
     return data
 
@@ -69,12 +69,12 @@ def get_build_job_per_team():
     list_of_teams = get_list_teams()
     team_list = []
     for team in list_of_teams:
-        buildjob_list = []
+        buildjob_list = {}
         query = collection.find({"teamName": str(team)}).distinct("name")
         x = len(query)
-        buildjob_list.append(team)
+        buildjob_list.update({"name": team, "buildjob":x})
         # buildjob_list.append(query)
-        buildjob_list.append(x)
+        # buildjob_list.append(x)
         team_list.append(buildjob_list)
     return team_list
 

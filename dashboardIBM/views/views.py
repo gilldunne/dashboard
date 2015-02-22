@@ -21,18 +21,18 @@ def get_active_inactive_build_jobs(request):
     act = ""
     data = db_wrapper.prepare_graph_data()
     # print >> sys.stderr, type(data)
-    for i in data:
-        print >> sys.stderr, i
-        amt = 0
-        for j in i:
-            if(j == True):
-                amt += 1
-                act = "active"
-            elif(j == False):
-                amt += 1
-                act = "inactive"
-        test.append(act)
-        test.append(amt)
+    # for i in data:
+    #     print >> sys.stderr, i
+    #     amt = 0
+    #     for j in i:
+    #         if(j == True):
+    #             amt += 1
+    #             act = "active"
+    #         elif(j == False):
+    #             amt += 1
+    #             act = "inactive"
+    #     test.append(act)
+    #     test.append(amt)
     # json.loads(dumps(data))
     return Response(data)
 

@@ -12,7 +12,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-
 body
 {
 	background: #ffffff;
@@ -27,9 +26,7 @@ a
   background: #b0e0f8;
   margin: 5px;
 }
-.chart rect {
-  fill: steelblue;
-}
+
 .chart text.data {
   font: 10px sans-serif;
 }
@@ -47,6 +44,49 @@ a
 .chart rect:hover {
   fill: #64707D;
 }
+.chart .legend {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: start;
+  font-size: 12px;
+}
+
+.chart .label {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: end;
+}
+.bar:hover {
+  fill: brown;
+}
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 8px;
+  background: rgba(255, 255, 255,0.8);
+  color: #000;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
 #container
 {
 	width: 900px;
@@ -57,7 +97,7 @@ a
 	width: 900px;
 	height: 30px;
 	margin: 0 auto;
-	padding-top: 50;
+	padding-top: 0;
 	background: #ccc;
 }
 #sidebar
@@ -108,6 +148,8 @@ a
 
 
 
+
+
 </style>
 
 <html>
@@ -115,6 +157,8 @@ a
 		<title>SBuilJobs</title>
 {#		<link rel="stylesheet" type="text/css" href="css/style.css">#}
 		<script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<meta charset="utf-8">
 
 
@@ -124,33 +168,63 @@ a
 		<div id="container" >
 			<div id="header"> <center>This is the IBM header from Dashboard</center></div>
 
-			<div id="sidebar">
-				<ul id="sidebar">
-					<li><a href="#.html" class ="button">Home</a></li>
-					<li><a href="#.html" class ="button">Buildjobs per Team</a></li>
-					<li><a href="#.html" class ="button">Graph 2</a></li>
-					<li><a href="#.html" class ="button">Graph 3</a></li>
-				</ul>
-			</div>
+{#			<div id="sidebar">#}
+{#				<ul id="sidebar">#}
+{#					<li><a href="#.html" class ="button">Home</a></li>#}
+{#					<li><a href="#.html" class ="button">Buildjobs per Team</a></li>#}
+{#					<li><a href="#.html" class ="button">Graph 2</a></li>#}
+{#					<li><a href="#.html" class ="button">Graph 3</a></li>#}
+{#				</ul>#}
+{#			</div>#}
 
 			<div id="content">
 				<h3>Number of Buildjobs per Team</h3>
-				<svg class="chart"></svg>
+                <svg class="chart"></svg>
 				<script>
-					var dataset = [
-					{"name":"Same Time","builjob":9},
-					{"name":"Unite","builjob":15},
-					{"name":"Watson","builjob":8},
-					{"name":"Docks","builjob":16},
-					{"name":"Connections","builjob":23},
-					{"name":"Foundations","builjob":10}
-					];
 
-					var data = dataset.map(function(d) {return d.builjob;});
-					var names = dataset.map(function(d) {return d.name;});
+                    var $item = $('#item');
+                    var data = [];
+                    var names = [];
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/buildjob",
+                        cache: false,
+                        success: function(d){
+                            console.log(d);
+                            $.each(d, function(i, item) {
+{#                                $item.append(item);#}
+                                data.push(item.buildjob);
+                                names.push(item.name);
 
-					//var data = [4, 15, 8, 16, 23, 10];
-					//var names = ["Same Time", "Unite", "Watson", "Docks", "Connections", "Foundations"].sort();
+                            });
+                            console.log(names);
+                        }
+                    });
+
+{#					var dataset = [#}
+{#					{"name":"Connections Team","builjob":9},#}
+{#					{"name":"Cloud Platform Team","builjob":9},#}
+{#					{"name":"IBM Docs Team","builjob":11},#}
+{#					{"name":"SameTime Team","builjob":6},#}
+{#					{"name":"Unyte Team","builjob":10},#}
+{#					{"name":"Foundations Team","builjob":9}#}
+{#					];#}
+{##}
+{#					var data = dataset.map(function(d) {return d.builjob;});#}
+{#					var names = dataset.map(function(d) {return d.name;});#}
+
+{#                    var data = [9,9,11,6,10,9];#}
+{#                    var names = ["Connections Team","Cloud Platform Team",#}
+{#                                "IBM Docs Team","SameTime Team",#}
+{#                                "Unyte Team","Foundations Team"];#}
+
+					var tip = d3.tip()
+					.attr('class', 'd3-tip')
+					.offset([-10, 0])
+					.html(function(d) {
+							return "<strong>Total:</strong> <span style='color:black'>" + d + "</span>";
+						});
+
 
 					var margin = {top: 30, right: 20, bottom: 20, left: 150},
 						width = 520,
@@ -177,10 +251,13 @@ a
 					var chart = d3.select(".chart")
 						.attr("width", width + margin.left + margin.right)
 						.attr("height", height + margin.top + margin.bottom)
-					  .append("g")
+					    .append("g")
 						.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+					chart.call(tip);
+
 					chart.append("g")
+						.attr("fill", "steelblue")
 						.attr("class", "bars")
 					  .selectAll("rect")
 						.data(data)
@@ -195,30 +272,36 @@ a
 					  .select(".tick line")
 						.style("stroke", "#000");
 
-					chart.selectAll("text.data")
-						.data(data)
-						.enter().append("text")
-						.attr("x", x)
-						.attr("y", function(d){ return y1(d) + y1.rangeBand()/2; } )
-						.attr("dx", -5)
-						.attr("dy", ".36em")
-						.attr("text-anchor", "end")
-						.text(String);
+{#					chart.selectAll("text.data")#}
+{#						.data(data)#}
+{#						.enter().append("text")#}
+{#						.attr("x", x)#}
+{#						.attr("y", function(d){ return y1(d) + y1.rangeBand()/2; } )#}
+{#						.attr("dx", -5)#}
+{#						.attr("dy", ".36em")#}
+{#						.attr("text-anchor", "end")#}
+{#						.text(String);#}
 
 					chart.selectAll("text.name")
 						.data(names)
 						.enter().append("text")
-						.attr("x", -100)
+						.attr("x", -145)
 						.attr("y", function(d){ return y(d) + barHeight/2; } )
 						.attr("dy", ".36em")
-						.attr("text-anchor", "middle")
+						.attr("text-anchor", "right")
 						.attr('class', 'name')
 						.text(String);
 
+					chart.selectAll("rect")
+						.on('mouseover', tip.show)
+						.on('mouseout', tip.hide)
+						.on('click', function (d){chart.html('<a href="index.html"></a>');})
+						;
 
 				</script>
 
 			</div>
+
 			<div id="footer"> Footer Goes Here </div>
 		</div>
 	</body>
