@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee430cac-c4b9-4435-bd1e-28d7e21e4557" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\Users\Gillian\Source\Repos\dashboard\templates\test.html" afterPath="$PROJECT_DIR$/templates/buildjob.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/urls.py" afterPath="$PROJECT_DIR$/dashboard/urls.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/activeServer.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dashboard.iws" />
@@ -38,14 +37,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dashboard/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26635513" vertical-offset="141" max-vertical-offset="782">
+            <state vertical-scroll-proportion="0.0" vertical-offset="141" max-vertical-offset="782">
               <caret line="15" column="46" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activeServer.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/activeServer.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="402">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -109,11 +118,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/dashboard/settings.py" />
-        <option value="$PROJECT_DIR$/dashboard/urls.py" />
         <option value="$PROJECT_DIR$/dashboardIBM/views/views.py" />
         <option value="$PROJECT_DIR$/dashboardIBM/db_wrapper.py" />
         <option value="$PROJECT_DIR$/templates/test.html" />
         <option value="$PROJECT_DIR$/templates/index.html" />
+        <option value="$PROJECT_DIR$/dashboard/urls.py" />
+        <option value="$PROJECT_DIR$/templates/activeServer.html" />
       </list>
     </option>
   </component>
@@ -194,6 +204,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="FullScreen" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -968,11 +979,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26635513" vertical-offset="141" max-vertical-offset="782">
+        <state vertical-scroll-proportion="0.0" vertical-offset="141" max-vertical-offset="782">
           <caret line="15" column="46" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/activeServer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="428">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
