@@ -45,8 +45,8 @@ def prepare_graph_data():
             else:
                 list_data.append(False)
         i += 1
-        graph_data.update({'Team Name': team_name})#
-        graph_data.update({"BuildJob active" : list_data})
+        graph_data.update({'TeamName': team_name})#
+        graph_data.update({"ActiveBuildJob" : list_data})
         # graph_data.append(list_data)
         data.append(graph_data)
     return data

@@ -185,49 +185,41 @@ a
 {#                    var $item = $('#item');#}
                     data = [];
                     names = [];
-                    $.ajax({
-                        type: "GET",
-                        url: "/api/buildjob",
-                        cache: false,
-                        success: function(d){
-                            console.log(d);
-                            $.each(d, function(i, item) {
-                                $item.append(item);
-                                data.push(item.buildjob);
-                                names.push(item.name);
 
-                            });
+var getRequest = function(callbackResponse) {
+    $.ajax({
+        type: "GET",
+        url: "/api/buildjob",
+        cache: false,
 
-                        }
-                    });
-                    console.log(names);
-{#					var dataset = [#}
-{#					{"name":"Connections Team","builjob":9},#}
-{#					{"name":"Cloud Platform Team","builjob":9},#}
-{#					{"name":"IBM Docs Team","builjob":11},#}
-{#					{"name":"SameTime Team","builjob":6},#}
-{#					{"name":"Unyte Team","builjob":10},#}
-{#					{"name":"Foundations Team","builjob":9}#}
-{#					];#}
+        success: function (response) {
+            console.log(response);
+            callbackResponse(response);
+{#            console.log(d);#}
+{#            $.each(d, function (i, item) {#}
+                {#                                $item.append(item);#}
+{#                data.push(item.buildjob);#}
+{#                names.push(item.name);#}
 {##}
-{#					var data = dataset.map(function(d) {return d.builjob;});#}
-{#					var names = dataset.map(function(d) {return d.name;});#}
+{#            });#}
 
-{#                    var data = [9,9,11,6,10,9];#}
-{#                    var names = ["Connections Team","Cloud Platform Team",#}
-{#                                "IBM Docs Team","SameTime Team",#}
-{#                                "Unyte Team","Foundations Team"];#}
+        }
+    });
+};
 
-                    $( document ).ready(function() {
-                        var test = function(){
-
-                        }
-                    });
+var callbackResponse = function(response){
+{#        Process data returned from Response #}
 
 
-
-
-					var tip = d3.tip()
+    $.each(response,function(i,val){
+        data[i] = val.buildjob;
+        names[i] = val.name;
+    });
+//add d3 here
+{#   $.each(data,function(i,val){#}
+{#        console.log(val);#}
+{#    });#}
+    					var tip = d3.tip()
 					.attr('class', 'd3-tip')
 					.offset([-10, 0])
 					.html(function(d) {
@@ -306,6 +298,15 @@ a
 						.on('mouseout', tip.hide)
 						.on('click', function (d){chart.html('<a href="index.html"></a>');})
 						;
+
+};
+$( document ).ready(function() {
+    getRequest(callbackResponse);
+    console.log("running");
+
+
+
+});
 
 				</script>
 
