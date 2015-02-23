@@ -181,10 +181,10 @@ a
 				<h3>Number of Buildjobs per Team</h3>
                 <svg class="chart"></svg>
 				<script>
-
-                    var $item = $('#item');
-                    var data = [];
-                    var names = [];
+{#TODO - Array is not keeping the data? #}
+{#                    var $item = $('#item');#}
+                    data = [];
+                    names = [];
                     $.ajax({
                         type: "GET",
                         url: "/api/buildjob",
@@ -192,15 +192,15 @@ a
                         success: function(d){
                             console.log(d);
                             $.each(d, function(i, item) {
-{#                                $item.append(item);#}
+                                $item.append(item);
                                 data.push(item.buildjob);
                                 names.push(item.name);
 
                             });
-                            console.log(names);
+
                         }
                     });
-
+                    console.log(names);
 {#					var dataset = [#}
 {#					{"name":"Connections Team","builjob":9},#}
 {#					{"name":"Cloud Platform Team","builjob":9},#}
@@ -217,6 +217,15 @@ a
 {#                    var names = ["Connections Team","Cloud Platform Team",#}
 {#                                "IBM Docs Team","SameTime Team",#}
 {#                                "Unyte Team","Foundations Team"];#}
+
+                    $( document ).ready(function() {
+                        var test = function(){
+
+                        }
+                    });
+
+
+
 
 					var tip = d3.tip()
 					.attr('class', 'd3-tip')
