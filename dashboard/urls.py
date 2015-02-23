@@ -20,7 +20,7 @@ urlpatterns = patterns('',
 
     # TODO - Amend this endpoint to receive live data from the DB
     # Testing a horizontal bar chart
-    url(r'^api/test', TemplateView.as_view(template_name='test.html'), name="test"),
+    url(r'^api/test', TemplateView.as_view(template_name='buildjob.html'), name="test"),
 
     # TODO - Sort the endpoint to suit the data
     # Show a list of True or False based on the active or inactive server
