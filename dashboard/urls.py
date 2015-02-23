@@ -19,6 +19,8 @@ urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name='index.html'), name="home"),
 
     # TODO - Amend this endpoint to receive live data from the DB
+     url(r'^api/test2', TemplateView.as_view(template_name='activeServer.html'), name="test2"),
+
     # Testing a horizontal bar chart
     url(r'^api/test', TemplateView.as_view(template_name='buildjob.html'), name="test"),
 
